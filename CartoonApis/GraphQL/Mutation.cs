@@ -11,8 +11,7 @@ namespace CartoonApis.GraphQL
             var data = new Family(id: id, name: name);
             var result = await
             familyRepository.CreateFamily(data);
-            await eventSender.SendAsync("FamilyCreated",
-            result);
+            await eventSender.SendAsync("FamilyCreated", result);
             return result;
         }
 
@@ -26,8 +25,7 @@ namespace CartoonApis.GraphQL
 
             var result = await
             personRepository.CreatePerson(data);
-            await eventSender.SendAsync("PersonCreated",
-            result);
+            await eventSender.SendAsync("PersonCreated", result);
             return result;
         }
     }
