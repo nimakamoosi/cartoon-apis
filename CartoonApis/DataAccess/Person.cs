@@ -1,4 +1,8 @@
-﻿namespace CartoonApis.DataAccess
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
+namespace CartoonApis.DataAccess
 {
     public class Person
     {
@@ -22,6 +26,7 @@
 
         //[GraphQLType(typeof(Family))]
         [GraphQLIgnore]
-        public Family Family { get; set; }
+        [NotMapped]
+        public Family? Family { get; set; }
     }
 }

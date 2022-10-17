@@ -45,7 +45,8 @@ namespace CartoonApis.Controllers
         [HttpPost]
         public async Task<Person> CreatePerson(Person person)
         {
-            return await _personRepository.CreatePerson(person);
+            var createdPerson = await _personRepository.CreatePerson(person);
+            return createdPerson;
         }
 
         [HttpDelete]

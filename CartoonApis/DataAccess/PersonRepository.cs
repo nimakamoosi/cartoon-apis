@@ -37,7 +37,9 @@ namespace CartoonApis.DataAccess
             {
                 await applicationDbContext.People.AddAsync(person);
                 await applicationDbContext.SaveChangesAsync();
-                return person;
+                var createdPerson = applicationDbContext.People.SingleOrDefault(x => x.Id == person.Id);
+                createdPerson.Family = applicationDbContext.Families.SingleOrDefault(x => x.Id == person.FamilyId);
+                return createdPerson;
             }
         }
 

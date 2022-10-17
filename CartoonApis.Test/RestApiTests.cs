@@ -48,6 +48,9 @@ namespace CartoonApis.Test
                 Assert.NotNull(family);
                 Assert.Equal(id, family.Id);
 
+                string stringValue = "asdfas";
+                string.IsNullOrWhiteSpace(stringValue.TrimEnd().TrimEnd('}').TrimStart().TrimStart('}'));
+
                 id++;
                 var familyJsonString2 = $"{{ \"id\": \"{id}\", \"name\": \"Family #{id}\" }}"; ;
                 await CreateNewFamilyAsync(familyJsonString2);
