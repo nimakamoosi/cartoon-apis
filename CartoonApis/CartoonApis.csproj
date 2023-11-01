@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.8.2" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>

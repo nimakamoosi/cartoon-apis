@@ -1,5 +1,7 @@
+using CartoonApis;
 using CartoonApis.DataAccess;
 using CartoonApis.GraphQL;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
 
 // Create builder and services
@@ -31,9 +33,38 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+    .AddCertificate(options =>
+    {
+        options.Validate();
+        options.AllowedCertificateTypes = CertificateTypes.All;
+        options.Events = new CertificateAuthenticationEvents
+        {             
+            OnCertificateValidated = context =>
+            {
+                var clientCertificate = context.ClientCertificate;
+                if (clientCertificate == null || string.IsNullOrWhiteSpace(clientCertificate.Thumbprint))
+                {
+                    context.Fail("Invalid client certificate.");
+                }
+                else
+                {
+                    context.HttpContext.Response.Headers.Add("Cartoons-ClientCertificate-Thumbprint", clientCertificate.Thumbprint);
+                    context.Success();
+                }
+
+                return Task.CompletedTask;
+            }
+        };
+    }
+);
+
 //
 // Build an configure app
 var app = builder.Build();
+
+app.UseAuthentication();
+
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
